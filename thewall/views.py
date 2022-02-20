@@ -1,6 +1,7 @@
 import logging
 from django.forms import ValidationError
-from django.shortcuts import get_list_or_404, get_object_or_404, render
+from django.shortcuts import get_object_or_404
+from django.db.models import Max, Q
 from rest_framework import generics
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
@@ -97,10 +98,18 @@ class CostProfileDay(generics.ListAPIView):
 
 class CostProfile(generics.ListAPIView):
     def get(self, request, day_id=None, format=None):
-        queryset = Day.objects.filter(day_no=day_id if day_id else 30)
-        items = get_list_or_404(queryset)
         total_feet_done = 0
-        for item in items:
+        profile_count = Day.objects.aggregate(Max("profile_no"))["profile_no__max"]
+        for profile_no in range(1, profile_count + 1):
+            if not day_id:
+                result = Day.objects.aggregate(
+                    day_max=Max("day_no", filter=Q(profile_no=profile_no))
+                )
+                day_max = result.get("day_max")
+            queryset = Day.objects.filter(
+                day_no=day_id if day_id else day_max, profile_no=profile_no
+            )
+            item = get_object_or_404(queryset)
             total_feet_done += item.total_feet_done
 
         serializer = CostSerializer(

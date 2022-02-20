@@ -17,7 +17,7 @@ def handle_upload_data(f):
     data = []
     for prof_no, profile in enumerate(fhand, start=1):
         total_work = 0  # section total
-        for day in range(1, 31):
+        for day in range(1, max(profile) + 1):
             current_work = 0  # daily work completed
             for section in profile:
                 if section >= day:

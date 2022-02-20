@@ -1,3 +1,5 @@
 __pycache__
 *.swp
 *.sqlite3
+sandbox.py
+info.log

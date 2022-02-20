@@ -1,16 +1,16 @@
 import logging
+
+from django.db.models import Max, Q
 from django.forms import ValidationError
 from django.shortcuts import get_object_or_404
-from django.db.models import Max, Q
-from rest_framework import generics
-from rest_framework.viewsets import ViewSet
+from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
-from rest_framework import status
+from rest_framework.viewsets import ViewSet
 
 from .models import Day
+from .serializers import CostSerializer, DaySerializer, IceSerializer, UploadSerializer
 from .upload import handle_upload_data  # Function to handle an uploaded file.
-from .serializers import UploadSerializer, DaySerializer, IceSerializer, CostSerializer
 
 YARDS_ICE_PER_FOOT = 195
 GOLD_PER_YARD_ICE = 1900
@@ -53,7 +53,7 @@ class UploadViewSet(ViewSet):
         except Exception as e:
             response = "File upload failed: Error while processing the file!"
             return_status = status.HTTP_400_BAD_REQUEST
-            log.debug(f"{response} {e}")
+            log.error(f"{response} {e}")
         else:
             response = "File upload successful!"
             return_status = status.HTTP_200_OK

@@ -42,11 +42,18 @@ class UploadViewSet(ViewSet):
     def list(self, request, format=None):
         return Response("Use POST request to upload data file")
 
-    def create(self, request):
-        uploaded_file = request.FILES["file_uploaded"]
+    def create(self, request, format=None):
+        try:
+            uploaded_file = request.FILES["file_uploaded"]
+        except KeyError:
+            response = "File upload failed: No file uploaded!"
+            return_status = status.HTTP_400_BAD_REQUEST
+            return Response(response, return_status)
+
+        workers = int(request.data.get("workers", -1))
 
         try:
-            handle_upload_data(uploaded_file)
+            handle_upload_data(uploaded_file, workers)
         except ValidationError as ve:
             response = f"File upload failed: {ve.message}"
             return_status = status.HTTP_400_BAD_REQUEST
@@ -102,13 +109,9 @@ class CostProfile(generics.ListAPIView):
         profile_count = Day.objects.aggregate(Max("profile_no"))["profile_no__max"]
         for profile_no in range(1, profile_count + 1):
             if not day_id:
-                result = Day.objects.aggregate(
-                    day_max=Max("day_no", filter=Q(profile_no=profile_no))
-                )
+                result = Day.objects.aggregate(day_max=Max("day_no", filter=Q(profile_no=profile_no)))
                 day_max = result.get("day_max")
-            queryset = Day.objects.filter(
-                day_no=day_id if day_id else day_max, profile_no=profile_no
-            )
+            queryset = Day.objects.filter(day_no=day_id if day_id else day_max, profile_no=profile_no)
             item = get_object_or_404(queryset)
             total_feet_done += item.total_feet_done
 

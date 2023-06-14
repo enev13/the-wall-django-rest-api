@@ -2,11 +2,11 @@
 
 ## Story
 
-*\- The White Walkers sleep beneath the ice for thousands of years. And when they wake up...*
+_\- The White Walkers sleep beneath the ice for thousands of years. And when they wake up..._
 
-*\- And when they wake up... what?*
+_\- And when they wake up... what?_
 
-*\- I hope the Wall is high enough.*
+_\- I hope the Wall is high enough._
 
 The Wall is a colossal fortification which is being built to stretch for 100 leagues (300 miles) along the northern border of the Seven Kingdoms. Its purpose is to defend the realm from the wildlings who live beyond. The Wall is reported to be 30 foot tall and is made of solid ice. The Sworn Brothers of the Night's Watch have arranged that each section has its own construction crew.
 
@@ -49,6 +49,7 @@ Scroll down to see detailed examples.
 #### Example
 
 ##### Input
+
 21 25 28
 17
 17 22 17 19 17
@@ -68,6 +69,7 @@ On the third day, only two crews work from the first wall profile, using up 390 
 Etc.
 
 ##### Output
+
 ```
 GET /profiles/1/days/1/
 RETURNS: {
@@ -80,7 +82,7 @@ ice_amount: "585"
 GET /profiles/1/overview/1/
 RETURNS: {
 day: "1",
-cost: "1, 111, 500"
+cost: "1111500"
 }
 ```
 
@@ -88,13 +90,14 @@ cost: "1, 111, 500"
 GET /profiles/overview/1/
 RETURNS: {
 day: "1",
-cost: "3, 334, 500"
+cost: "3334500"
 }
 ```
+
 ```
 GET /profiles/overview/
 RETURNS: {
 day: None,
-cost: "32, 233, 500"
+cost: "32233500"
 }
 ```

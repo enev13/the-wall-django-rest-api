@@ -16,7 +16,7 @@ The Wall is a colossal fortification which is being built to stretch for 100 lea
 
 Write a program that keeps track of material quantities and cost for the construction of the 30-feet wall.
 
-You will be given a series of numbers. These numbers represent the initial heights of different mile-long sections of the wall(Wall profile), in feet. Each of these sections has its own construction crew that can add 1 foot of height per day. All crews work simultaneously (see examples), meaning all sections that aren’t completed (are less than **30 feet** high) grow by 1 footevery day. When a section of the wall is completed, its crew is relieved. Each foot added uses **195 cubic yards of ice**. To process one cubic yard, it costs the Night’sWatch **1900 "Gold Dragon" coins** for salaries and food for the brothers who work on it.
+You will be given a series of numbers. These numbers represent the initial heights of different mile-long sections of the wall(Wall profile), in feet. Each of these sections has its own construction crew that can add 1 foot of height per day. All crews work simultaneously (see examples), meaning all sections that aren't completed (are less than **30 feet** high) grow by 1 footevery day. When a section of the wall is completed, its crew is relieved. Each foot added uses **195 cubic yards of ice**. To process one cubic yard, it costs the Night'sWatch **1900 "Gold Dragon" coins** for salaries and food for the brothers who work on it.
 
 Your program needs to expose a rest API using Django and Django Rest Framework that allows the managers of the process to keep track of how much ice is used daily until the completion of the entire wall profile.
 
@@ -62,7 +62,7 @@ Second profile: 1 crew x 195 = 195 cubic yards
 Third profile: 5 crews x 195 = 975 cubic yards
 In total: 1 755 cubic yards
 
-On the second day, it’s the same. However, the last section of the first wall profile reaches 30 feet and its crew is being relieved.
+On the second day, it's the same. However, the last section of the first wall profile reaches 30 feet and its crew is being relieved.
 
 On the third day, only two crews work from the first wall profile, using up 390 cubic yards in total.
 

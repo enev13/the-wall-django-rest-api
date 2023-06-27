@@ -54,6 +54,8 @@ class UploadViewSet(ViewSet):
 
         try:
             handle_upload_data(uploaded_file, workers)
+            response = "File upload successful!"
+            return_status = status.HTTP_200_OK
         except ValidationError as ve:
             response = f"File upload failed: {ve.message}"
             return_status = status.HTTP_400_BAD_REQUEST
@@ -61,9 +63,6 @@ class UploadViewSet(ViewSet):
             response = "File upload failed: Error while processing the file!"
             return_status = status.HTTP_400_BAD_REQUEST
             log.error(f"{response} {e}")
-        else:
-            response = "File upload successful!"
-            return_status = status.HTTP_200_OK
         finally:
             return Response(response, return_status)
 
